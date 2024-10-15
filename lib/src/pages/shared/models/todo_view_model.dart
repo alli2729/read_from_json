@@ -1,20 +1,20 @@
-class TodoListViewModel {
+class TodoViewModel {
   final int id;
   final int userId;
   final String title;
   final bool completed;
 
-  TodoListViewModel({
+  TodoViewModel({
     required this.id,
     required this.userId,
     required this.title,
     required this.completed,
   });
 
-  factory TodoListViewModel.fromJson({
+  factory TodoViewModel.fromJson({
     required Map<String, dynamic> json,
   }) {
-    return TodoListViewModel(
+    return TodoViewModel(
       id: json['id'],
       userId: json['userId'],
       title: json['title'],

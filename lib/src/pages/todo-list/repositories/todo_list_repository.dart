@@ -1,16 +1,18 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/todo_list_view_model.dart';
+import '../../shared/models/todo_view_model.dart';
 
 class TodoListRepository {
-  Future<List<TodoListViewModel>?> getTodos() async {
-    Uri url = Uri.https('jsonplaceholder.typicode.com', '/todos');
-    http.Response response = await http.get(url);
+  Future<List<TodoViewModel>?> getTodos() async {
+    final Uri url = Uri.https('jsonplaceholder.typicode.com', '/todos');
+    final http.Response response = await http.get(url);
 
     try {
-      final List<dynamic> json = jsonDecode(response.body);
-      List<TodoListViewModel> todos =
-          json.map((e) => TodoListViewModel.fromJson(json: e)).toList();
+      final List<dynamic> jsonData = jsonDecode(response.body);
+      final List<TodoViewModel> todos = jsonData
+          .map((todo) =>
+              TodoViewModel.fromJson(json: todo as Map<String, dynamic>))
+          .toList();
       return todos;
     } catch (e) {
       print('Somthing Went Wrong BRUH');
