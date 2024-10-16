@@ -22,7 +22,6 @@ class TodoWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: (isCompleted) ? Colors.green[300] : Colors.red[100],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,10 +33,15 @@ class TodoWidget extends StatelessWidget {
                 style: const TextStyle(fontSize: 16),
               ),
             ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
+            (isCompleted)
+                ? const Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                  )
+                : const Icon(
+                    Icons.cancel,
+                    color: Colors.red,
+                  ),
           ],
         ),
       ),

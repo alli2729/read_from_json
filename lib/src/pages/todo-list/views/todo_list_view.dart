@@ -56,7 +56,7 @@ class TodoListView extends GetView<TodoListControllers> {
           isCompleted: controller.todos[index].completed,
           onTap: () => controller.showTodo(index),
         ),
-        separatorBuilder: (context, index) => const SizedBox(height: 12),
+        separatorBuilder: (context, index) => const Divider(),
       ),
     );
   }
