@@ -51,4 +51,8 @@ class TodoListControllers extends GetxController {
       parameters: {'id': '${todos[index].id}'},
     );
   }
+
+  Future<void> addTodo() async {
+    await Get.toNamed(RouteNames.addTodo);
+  }
 }

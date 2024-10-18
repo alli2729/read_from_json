@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
-import '../controller/detail_controller.dart';
+import '../controllers/detail_controller.dart';
 
 class DetailBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => DetailController());
+    int? id = int.parse(Get.parameters['id'] ?? '');
+    Get.lazyPut(() => DetailController(id));
   }
 }

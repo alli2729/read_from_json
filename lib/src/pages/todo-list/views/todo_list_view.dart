@@ -9,8 +9,16 @@ class TodoListView extends GetView<TodoListControllers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: _fab(),
       body: Obx(_body),
       appBar: _appBar(),
+    );
+  }
+
+  Widget _fab() {
+    return FloatingActionButton(
+      onPressed: controller.addTodo,
+      child: const Icon(Icons.add),
     );
   }
 

@@ -4,6 +4,9 @@ import '../repositories/detail_repository.dart';
 import '../../shared/models/todo_view_model.dart';
 
 class DetailController extends GetxController {
+  int? id;
+  DetailController(this.id);
+
   Rx<TodoViewModel> todo = Rx<TodoViewModel>(
     TodoViewModel(
       id: 0,
@@ -13,8 +16,6 @@ class DetailController extends GetxController {
     ),
   );
   final DetailRepository _repo = DetailRepository();
-  final String idFromParam = Get.parameters['id'] ?? '';
-  int id = 0;
 
   RxBool isLoading = false.obs;
   RxBool isRetry = false.obs;
@@ -23,8 +24,8 @@ class DetailController extends GetxController {
     isLoading.value = true;
     isRetry.value = false;
 
-    final TodoViewModel? result = await _repo.getTodo(id);
-
+    final TodoViewModel? result = await _repo.getTodo(id ?? 0);
+    
     if (result != null) {
       isLoading.value = false;
       isRetry.value = false;
@@ -38,7 +39,6 @@ class DetailController extends GetxController {
 
   @override
   void onInit() {
-    id = int.parse(idFromParam);
     getTodo();
     super.onInit();
   }

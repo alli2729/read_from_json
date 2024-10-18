@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controller/detail_controller.dart';
+import '../controllers/detail_controller.dart';
 
 class DetailScreen extends GetView<DetailController> {
   const DetailScreen({super.key});
