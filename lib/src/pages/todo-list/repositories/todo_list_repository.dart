@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:either_dart/either.dart';
 import 'package:http/http.dart' as http;
+import '../../../infrastructure/common/repository_urls.dart';
 import '../../shared/models/todo_view_model.dart';
 
 class TodoListRepository {
-  Future<List<TodoViewModel>?> getTodos() async {
-    final Uri url = Uri.https('jsonplaceholder.typicode.com', '/todos');
+  Future<Either<String, List<TodoViewModel>>?> getTodos() async {
+    final Uri url = RepositoryUrls.getTodos;
     final http.Response response = await http.get(url);
 
     try {
@@ -13,11 +15,9 @@ class TodoListRepository {
           .map((todo) =>
               TodoViewModel.fromJson(json: todo as Map<String, dynamic>))
           .toList();
-      return todos;
+      return Right(todos);
     } catch (e) {
-      print('Somthing Went Wrong BRUH');
+      return Left(e.toString());
     }
-
-    return null;
   }
 }

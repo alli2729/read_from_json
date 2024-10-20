@@ -21,16 +21,19 @@ class TodoListControllers extends GetxController {
   Future<void> getTodos() async {
     isLoading.value = true;
     isRetry.value = false;
-    final List<TodoViewModel>? result = await _repo.getTodos();
-    if (result != null) {
-      isLoading.value = false;
-      isRetry.value = false;
-      todos.addAll(result);
-    } else {
-      isLoading.value = false;
-      isRetry.value = true;
-      showFailSnackBar();
-    }
+    final result = await _repo.getTodos();
+    result?.fold(
+      (exception) {
+        isLoading.value = false;
+        isRetry.value = true;
+        showFailSnackBar();
+      },
+      (todoList) {
+        isLoading.value = false;
+        isRetry.value = false;
+        todos.addAll(todoList);
+      },
+    );
   }
 
   void showFailSnackBar() {
