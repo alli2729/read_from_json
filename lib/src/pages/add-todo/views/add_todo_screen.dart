@@ -9,13 +9,22 @@ class AddTodoScreen extends GetView<AddTodoController> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: _fab(),
+      floatingActionButton: Obx(() => _fab()),
       appBar: _appBar(),
       body: _body(),
     );
   }
 
   Widget _fab() {
+    if (controller.isLoading.value) {
+      return FloatingActionButton(
+        onPressed: null,
+        child: Transform.scale(
+          scale: 0.5,
+          child: const CircularProgressIndicator(),
+        ),
+      );
+    }
     return FloatingActionButton(
       onPressed: controller.submit,
       child: const Icon(Icons.check),

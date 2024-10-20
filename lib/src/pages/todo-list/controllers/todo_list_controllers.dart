@@ -29,16 +29,28 @@ class TodoListControllers extends GetxController {
     } else {
       isLoading.value = false;
       isRetry.value = true;
-      showSnackBar();
+      showFailSnackBar();
     }
   }
 
-  void showSnackBar() {
+  void showFailSnackBar() {
     Get.showSnackbar(
       GetSnackBar(
         message: 'Somthing went wrong',
         duration: const Duration(seconds: 2),
         backgroundColor: Colors.red.shade300,
+        margin: const EdgeInsets.all(12),
+        borderRadius: 12,
+      ),
+    );
+  }
+
+  void showSuccessSnackBar() {
+    Get.showSnackbar(
+      GetSnackBar(
+        message: 'todo added successfully',
+        duration: const Duration(seconds: 2),
+        backgroundColor: Colors.green.shade300,
         margin: const EdgeInsets.all(12),
         borderRadius: 12,
       ),
@@ -53,6 +65,17 @@ class TodoListControllers extends GetxController {
   }
 
   Future<void> addTodo() async {
-    await Get.toNamed(RouteNames.addTodo);
+    final todo = await Get.toNamed(RouteNames.addTodo);
+    if (todo != null) {
+      todos.add(
+        TodoViewModel(
+          id: todo['id'],
+          userId: todo['userId'],
+          title: todo['title'],
+          completed: todo['completed'],
+        ),
+      );
+      showSuccessSnackBar();
+    }
   }
 }
