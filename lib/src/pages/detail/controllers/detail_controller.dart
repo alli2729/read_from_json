@@ -24,17 +24,20 @@ class DetailController extends GetxController {
     isLoading.value = true;
     isRetry.value = false;
 
-    final TodoViewModel? result = await _repo.getTodo(id ?? 0);
-    
-    if (result != null) {
-      isLoading.value = false;
-      isRetry.value = false;
-      todo.value = result;
-    } else {
-      isLoading.value = false;
-      isRetry.value = true;
-      showSnackBar();
-    }
+    final result = await _repo.getTodo(id ?? 0);
+
+    result?.fold(
+      (exception) {
+        isLoading.value = false;
+        isRetry.value = true;
+        showSnackBar();
+      },
+      (detail) {
+        isLoading.value = false;
+        isRetry.value = false;
+        todo.value = detail;
+      },
+    );
   }
 
   @override

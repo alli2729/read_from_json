@@ -12,6 +12,8 @@ class TodoListControllers extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isRetry = false.obs;
 
+  RxMap loadingValues = RxMap({});
+
   @override
   void onInit() {
     getTodos();
@@ -80,5 +82,20 @@ class TodoListControllers extends GetxController {
       );
       showSuccessSnackBar();
     }
+  }
+
+  Future<void> removeTodo(int id) async {
+    loadingValues[id] = true;
+    final result = await _repo.removeTodoById(id);
+    result?.fold(
+      (exception) {
+        showFailSnackBar();
+        loadingValues[id] = false;
+      },
+      (right) {
+        todos.removeWhere((todo) => todo.id == id);
+        loadingValues[id] = false;
+      },
+    );
   }
 }

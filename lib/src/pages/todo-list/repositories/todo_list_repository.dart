@@ -20,4 +20,20 @@ class TodoListRepository {
       return Left(e.toString());
     }
   }
+
+  Future<Either<String, bool>?> removeTodoById(int id) async {
+    final Uri url = RepositoryUrls.removeTodoById(id);
+    final http.Response response = await http.delete(url);
+
+    try {
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        Left(response.statusCode);
+      }
+    } catch (exception) {
+      return Left(exception.toString());
+    }
+    return null;
+  }
 }

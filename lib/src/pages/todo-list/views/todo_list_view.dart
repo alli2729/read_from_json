@@ -63,6 +63,7 @@ class TodoListView extends GetView<TodoListControllers> {
           todo: controller.todos[index],
           isCompleted: controller.todos[index].completed,
           onTap: () => controller.showTodo(index),
+          onRemove: () => controller.removeTodo(controller.todos[index].id),
         ),
         separatorBuilder: (context, index) => const Divider(),
       ),
