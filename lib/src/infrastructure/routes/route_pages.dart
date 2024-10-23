@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import '../../pages/edit-todo/common/edit_todo_bindings.dart';
+import '../../pages/edit-todo/views/edit_todo_screen.dart';
 import '../../pages/add-todo/common/add_todo_bindings.dart';
 import '../../pages/add-todo/views/add_todo_screen.dart';
 import 'route_path.dart';
@@ -23,6 +25,11 @@ class RoutePages {
           name: RoutePath.addTodo,
           page: () => const AddTodoScreen(),
           binding: AddTodoBindings(),
+        ),
+        GetPage(
+          name: RoutePath.editTodo,
+          page: () => const EditTodoScreen(),
+          binding: EditTodoBindings(),
         ),
       ],
     ),

@@ -71,17 +71,16 @@ class TodoListControllers extends GetxController {
 
   Future<void> addTodo() async {
     final todo = await Get.toNamed(RouteNames.addTodo);
-    if (todo != null) {
-      todos.add(
-        TodoViewModel(
-          id: todo['id'],
-          userId: todo['userId'],
-          title: todo['title'],
-          completed: todo['completed'],
-        ),
-      );
-      showSuccessSnackBar();
-    }
+
+    todos.add(
+      TodoViewModel(
+        id: todo['id'],
+        userId: todo['userId'],
+        title: todo['title'],
+        completed: todo['completed'],
+      ),
+    );
+    showSuccessSnackBar();
   }
 
   Future<void> removeTodo(int id) async {
@@ -96,6 +95,22 @@ class TodoListControllers extends GetxController {
         todos.removeWhere((todo) => todo.id == id);
         loadingValues[id] = false;
       },
+    );
+  }
+
+  Future<void> editTodoById(int id) async {
+    final result = await Get.toNamed(
+      RouteNames.editTodo,
+      parameters: {"id": "$id"},
+    );
+
+    int index = todos.indexWhere((element) => element.id == id);
+
+    todos[index] = TodoViewModel(
+      id: result['id'],
+      userId: result['userId'],
+      title: result['title'],
+      completed: result['completed'],
     );
   }
 }

@@ -8,4 +8,5 @@ class RepositoryUrls {
 
   static Uri getTodoById(int id) => Uri.http(_baseUrl, '/$_todos/$id');
   static Uri removeTodoById(int id) => Uri.http(_baseUrl, '/$_todos/$id');
+  static Uri editTodoById(int id) => Uri.http(_baseUrl, '/$_todos/$id');
 }

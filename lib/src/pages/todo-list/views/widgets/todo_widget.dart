@@ -9,6 +9,7 @@ class TodoWidget extends GetView<TodoListControllers> {
     required this.todo,
     required this.onTap,
     required this.onRemove,
+    required this.onEdit,
     required this.isCompleted,
   });
 
@@ -16,6 +17,7 @@ class TodoWidget extends GetView<TodoListControllers> {
   final bool isCompleted;
   final void Function() onTap;
   final void Function() onRemove;
+  final void Function() onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class TodoWidget extends GetView<TodoListControllers> {
             Expanded(child: _title()),
             _check(),
             const SizedBox(width: 10),
+            _editButton(),
             Obx(() => _removeIcon()),
           ],
         ),
@@ -40,12 +43,20 @@ class TodoWidget extends GetView<TodoListControllers> {
     );
   }
 
+  Widget _editButton() {
+    return IconButton(
+      onPressed: onEdit,
+      icon: const Icon(Icons.edit),
+    );
+  }
+
   Widget _removeIcon() {
     return (controller.loadingValues[todo.id] ?? false)
         ? IconButton(
+            mouseCursor: SystemMouseCursors.forbidden,
             onPressed: null,
             icon: Transform.scale(
-              scale: .5,
+              scale: .6,
               child: const CircularProgressIndicator(),
             ),
           )

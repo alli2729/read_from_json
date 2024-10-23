@@ -7,8 +7,6 @@ import '../../../infrastructure/common/repository_urls.dart';
 import '../../shared/models/todo_view_model.dart';
 
 class DetailRepository {
-  DetailRepository();
-
   Future<Either<String, TodoViewModel>?> getTodo(int id) async {
     final Uri url = RepositoryUrls.getTodoById(id);
     final http.Response response = await http.get(url);
